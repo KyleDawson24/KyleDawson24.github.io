@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kyle Dawson | Data projects and Fantasy League Almanac</title>
+  <meta name="description" content="Kyle Dawson's personal site and the home of Fantasy League Almanac, an open-source tool for exploring ESPN fantasy-baseball history.">
+  <link rel="canonical" href="https://kpdawson.com/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="/">Kyle Dawson</a>
+    <nav aria-label="Primary navigation">
+      <a href="#projects">Projects</a>
+      <a href="https://github.com/KyleDawson24">GitHub</a>
+      <a href="mailto:kpdawson.github@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Data engineering · analytics · baseball</p>
+      <h1>Building data systems that turn complicated histories into something people can use.</h1>
+      <p class="lede">I'm Kyle Dawson. This is the home for my public projects, technical work, and the documentation behind them.</p>
+      <div class="actions">
+        <a class="button primary" href="#projects">See the work</a>
+        <a class="button secondary" href="https://github.com/KyleDawson24">GitHub profile</a>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <p class="eyebrow">Featured project</p>
+      <div class="project-card">
+        <div>
+          <h2>Fantasy League Almanac</h2>
+          <p class="project-summary">An open-source desktop tool that turns an ESPN fantasy-baseball league's history into a browsable record book and Google workbook.</p>
+        </div>
+        <a class="text-link" href="https://github.com/KyleDawson24/fantasy-league-almanac">View source and documentation →</a>
+      </div>
+
+      <div class="feature-grid">
+        <article>
+          <h3>Local by default</h3>
+          <p>League data is extracted to Parquet and DuckDB on the user's computer. The public workflow does not require a hosted warehouse account.</p>
+        </article>
+        <article>
+          <h3>A narrow Google permission</h3>
+          <p>The optional workbook flow requests only <code>drive.file</code>. It can work with the file the app creates, not browse the rest of a user's Drive.</p>
+        </article>
+        <article>
+          <h3>Private before sharing</h3>
+          <p>The app creates and renders the workbook privately. It asks immediately before enabling anyone-with-the-link viewer access.</p>
+        </article>
+      </div>
+
+      <div class="notice">
+        <h3>What the project does not have</h3>
+        <p>No hosted user accounts, advertising, analytics, payment collection, maintainer backend, or automatic upload of credentials, league data, logs, or workbook links.</p>
+      </div>
+    </section>
+
+    <section class="section contact-card">
+      <div>
+        <p class="eyebrow">Questions or feedback</p>
+        <h2>Get in touch</h2>
+        <p>For project support, privacy questions, or professional inquiries:</p>
+      </div>
+      <a class="button primary" href="mailto:kpdawson.github@gmail.com">kpdawson.github@gmail.com</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Kyle Dawson</span>
+    <span class="footer-links">
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+    </span>
+    <span>Fantasy League Almanac is not affiliated with or endorsed by ESPN, Google, Snowflake, or Major League Baseball.</span>
+  </footer>
+</body>
+</html>
