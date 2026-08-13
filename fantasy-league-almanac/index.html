@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fantasy League Almanac | Turn ESPN league history into a record book</title>
+  <meta name="description" content="Fantasy League Almanac is a desktop application that turns ESPN fantasy-baseball history into a local record book and optional Google workbook.">
+  <link rel="canonical" href="https://kpdawson.com/fantasy-league-almanac/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="/">Kyle Dawson</a>
+    <nav aria-label="Primary navigation">
+      <a href="/">Home</a>
+      <a href="https://github.com/KyleDawson24/fantasy-league-almanac">Source</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="mailto:kpdawson.github@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="app-hero">
+      <p class="eyebrow">Fantasy League Almanac</p>
+      <h1>Turn years of ESPN fantasy-baseball history into a league record book.</h1>
+      <p class="lede">Fantasy League Almanac is a desktop application that extracts the history of a league you can access, processes it locally, and builds a browsable almanac. Its optional Google workflow creates a workbook in your own Drive.</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/KyleDawson24/fantasy-league-almanac">View the project on GitHub</a>
+        <a class="button secondary" href="#google-access">Why it asks for Google access</a>
+      </div>
+    </section>
+
+    <section class="app-section" aria-labelledby="how-it-works">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-it-works">Your league goes in. A historical record book comes out.</h2>
+      <p class="section-intro">The supported public workflow currently focuses on ESPN fantasy-baseball leagues. It reconstructs seasons, teams, owners, players, matchups, standings, drafts, transactions, records, and derived historical comparisons from the data ESPN provides.</p>
+      <div class="step-grid">
+        <article class="step">
+          <span class="step-number">1</span>
+          <h3>Read your league</h3>
+          <p>You provide access to an ESPN league you are authorized to use. ESPN credentials stay on your computer; they are not sent to Kyle or a hosted Almanac service.</p>
+        </article>
+        <article class="step">
+          <span class="step-number">2</span>
+          <h3>Build locally</h3>
+          <p>The application extracts data to local Parquet files, loads DuckDB, and runs the project models on your machine. No Snowflake or hosted warehouse account is required.</p>
+        </article>
+        <article class="step">
+          <span class="step-number">3</span>
+          <h3>Create the almanac</h3>
+          <p>The result is a record book with league history and comparisons. If you choose the Google workflow, the application creates a new workbook in the Google account you select.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="google-access" class="app-section">
+      <div class="permission-card">
+        <div>
+          <p class="eyebrow">Google Drive access</p>
+          <h2>One narrow permission, used for the workbook the app creates.</h2>
+          <p>Google identifies this permission as <code>drive.file</code>. Fantasy League Almanac uses it to create, write, share, and verify its own workbook. It does not use that permission to browse unrelated files in your Drive.</p>
+        </div>
+        <ul>
+          <li>The Google workbook is optional.</li>
+          <li>The app cannot browse your general Drive.</li>
+          <li>The workbook begins private.</li>
+          <li>Link viewing is enabled only after an explicit confirmation.</li>
+          <li>You can revoke Google access or delete the workbook later.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="app-section" aria-labelledby="data-boundaries">
+      <p class="eyebrow">Data boundaries</p>
+      <h2 id="data-boundaries">Designed to run under the user’s control.</h2>
+      <p class="section-intro">The supported v1.9 public Google-workbook workflow runs on Windows and stores its Google authorization in Windows Credential Locker. The broader project remains open for inspection on GitHub.</p>
+      <div class="boundary-grid">
+        <article class="boundary">
+          <h3>Local credentials and data</h3>
+          <p>ESPN cookies, extracted league data, and the local DuckDB database remain on the user’s computer by default.</p>
+        </article>
+        <article class="boundary">
+          <h3>No maintainer backend</h3>
+          <p>There is no hosted Almanac account database, analytics service, advertising, payment collection, telemetry, or automatic upload of logs or workbook links.</p>
+        </article>
+        <article class="boundary">
+          <h3>User-controlled sharing</h3>
+          <p>The app names the real league content that may appear before asking whether to enable anyone-with-the-link viewer access.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="app-section app-cta">
+      <div>
+        <p class="eyebrow">Learn more</p>
+        <h2>Review the code, documentation, and data practices.</h2>
+        <p>The repository contains the application and setup documentation. The Privacy Policy explains how league information and Google authorization are handled.</p>
+      </div>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/KyleDawson24/fantasy-league-almanac">Open the repository</a>
+        <a class="button secondary" href="/privacy/">Read the Privacy Policy</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Kyle Dawson</span>
+    <span class="footer-links">
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+    </span>
+    <span>Fantasy League Almanac is not affiliated with or endorsed by ESPN, Google, Snowflake, or Major League Baseball.</span>
+  </footer>
+</body>
+</html>
