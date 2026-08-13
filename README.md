@@ -9,6 +9,6 @@ at this time.
 ## Pages
 
 - `/` - personal homepage and Fantasy League Almanac overview
-- `/fantasy-league-almanac/` - app-specific homepage and Google access explanation
+- `/almanac/` - app-specific homepage and Google access explanation
 - `/privacy/` - Fantasy League Almanac Privacy Policy
 - `/terms/` - Fantasy League Almanac Terms of Service
