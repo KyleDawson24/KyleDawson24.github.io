@@ -1,0 +1,37 @@
+{
+  "repo": "KyleDawson24/KyleDawson24.github.io",
+  "revision": "e1cf7b81158f45cd1129a754e9412b598e625aa8",
+  "pages_build_type": "legacy",
+  "branch": "main",
+  "path": "/",
+  "files": {
+    "CNAME": {
+      "sha256": "a99e474523aaed2542285ac561e38010a42910d2bf58d1053a7bce1f93c45d6b",
+      "bytes": 12
+    },
+    "README.md": {
+      "sha256": "d77dc27dd20e49b8d5be67edfaf7b35dc364291cb1094261ff95beb2e57a9e3f",
+      "bytes": 453
+    },
+    "almanac/index.html": {
+      "sha256": "67129360f924a519ef7f77b9c8a10f59be98f305074328ce8b8660680bd08e50",
+      "bytes": 6084
+    },
+    "assets/styles.css": {
+      "sha256": "0a513ae9f4fb3bb27f33babcf5d616cae5f41090d7ea0cb5d14d8c977731931d",
+      "bytes": 5676
+    },
+    "index.html": {
+      "sha256": "30b6a6c45e988468342fd236727c6e453b0c3d387c40cdfbc3c1081e89655692",
+      "bytes": 3718
+    },
+    "privacy/index.html": {
+      "sha256": "e4c09f5b2c068e8b92e5dda9abab1223c9d72da9d7a15c373dc65e34cf7b9866",
+      "bytes": 6108
+    },
+    "terms/index.html": {
+      "sha256": "1200f603dcdb00807fa3b5372976c91347e522927dbe0306ebf8122f3c57def4",
+      "bytes": 5993
+    }
+  }
+}

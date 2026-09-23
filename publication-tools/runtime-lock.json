@@ -1,0 +1,55 @@
+{
+  "tslib-2.6.3.mjs": {
+    "url": "https://cdn.jsdelivr.net/npm/tslib@2.6.3/+esm",
+    "sha256": "4f4982b6423bc56309d1d97cc76b26a4dc0e36c6cec7fee540a2ff8e0f408115",
+    "bytes": 10708,
+    "dependencies": {}
+  },
+  "flatbuffers-24.3.25.mjs": {
+    "url": "https://cdn.jsdelivr.net/npm/flatbuffers@24.3.25/+esm",
+    "sha256": "e2e255fa750cc1ba9c2dbae40290cc8cb00a39546c926f86a49164ad1dea308f",
+    "bytes": 9269,
+    "dependencies": {}
+  },
+  "apache-arrow-17.0.0.mjs": {
+    "url": "https://cdn.jsdelivr.net/npm/apache-arrow@17.0.0/+esm",
+    "sha256": "2df175d5ca788380f3794ad2afcf86d84eb188c902e90f9cf90f2b3e33913ffc",
+    "bytes": 200034,
+    "dependencies": {
+      "/npm/tslib@2.6.3/+esm": "tslib-2.6.3.mjs",
+      "/npm/flatbuffers@24.3.25/+esm": "flatbuffers-24.3.25.mjs"
+    }
+  },
+  "duckdb.mjs": {
+    "url": "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.32.0/+esm",
+    "sha256": "91e95e8f527511820c4f8a6f1c4628dfde4c29b99df26e05e13be2734f47a868",
+    "bytes": 28019,
+    "dependencies": {
+      "/npm/apache-arrow@17.0.0/+esm": "apache-arrow-17.0.0.mjs"
+    }
+  },
+  "duckdb-browser-mvp.worker.js": {
+    "url": "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.32.0/dist/duckdb-browser-mvp.worker.js",
+    "sha256": "b0387027f174e2b60c2d5cfa31cecca9b89d8a9762346b6449a784cd1c4dde3c",
+    "bytes": 844644,
+    "dependencies": {}
+  },
+  "duckdb-mvp.wasm": {
+    "url": "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.32.0/dist/duckdb-mvp.wasm",
+    "sha256": "45d72a81fba8e57693d890da837c7041310e385e75619a8559839b15388dfe97",
+    "bytes": 39362651,
+    "dependencies": {}
+  },
+  "duckdb-browser-eh.worker.js": {
+    "url": "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.32.0/dist/duckdb-browser-eh.worker.js",
+    "sha256": "f8ab72b6b90b3ad83077d47426d4a99d5d9a4c7e07cba1a2be37d655adc7c1ab",
+    "bytes": 772759,
+    "dependencies": {}
+  },
+  "duckdb-eh.wasm": {
+    "url": "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.32.0/dist/duckdb-eh.wasm",
+    "sha256": "4c221bfa59c11f24dbd750e70c90b9252eca6eec5633936e6a2ec766e55fd879",
+    "bytes": 34242586,
+    "dependencies": {}
+  }
+}
