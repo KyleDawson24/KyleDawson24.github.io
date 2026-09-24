@@ -1,47 +1,59 @@
-# INACTIVE REVIEW DRAFT. Not installed in .github/workflows.
-# Requires Kyle's final go, Pages Actions mode, and protected environment.
-name: Publish Approved Dashboard Bundle
+name: Publish Approved Dashboard Bundles
+
 on:
   workflow_dispatch:
     inputs:
-      asset_id:
-        description: Immutable private Release asset ID
+      buns_asset_id:
+        description: Private Release asset ID for the latest sealed league dashboard
         required: true
-      bundle_sha256:
-        description: Reviewed local bundle SHA-256
+      buns_sha256:
+        description: SHA-256 of that sealed archive
+        required: true
+      demo_asset_id:
+        description: Private Release asset ID for the sealed anonymous dashboard
+        required: true
+      demo_sha256:
+        description: SHA-256 of that sealed archive
         required: true
       approval:
-        description: Type PUBLISH APPROVED BUNS
+        description: Type PUBLISH APPROVED DASHBOARDS
         required: true
+
 permissions:
   contents: read
 concurrency:
   group: pages
   cancel-in-progress: false
+
 jobs:
   build:
-    if: inputs.approval == 'PUBLISH APPROVED BUNS'
+    if: inputs.approval == 'PUBLISH APPROVED DASHBOARDS'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
-      - name: Download approved private asset
+      - name: Download and verify both private release assets
         env:
           GH_TOKEN: ${{ secrets.DASHBOARD_RELEASE_READ_TOKEN }}
-          ASSET_ID: ${{ inputs.asset_id }}
-          EXPECTED_SHA: ${{ inputs.bundle_sha256 }}
+          BUNS_ASSET: ${{ inputs.buns_asset_id }}
+          BUNS_SHA: ${{ inputs.buns_sha256 }}
+          DEMO_ASSET: ${{ inputs.demo_asset_id }}
+          DEMO_SHA: ${{ inputs.demo_sha256 }}
         run: |
-          [[ "$ASSET_ID" =~ ^[0-9]+$ ]] || exit 1
-          [[ "$EXPECTED_SHA" =~ ^[0-9a-f]{64}$ ]] || exit 1
-          gh api "repos/KyleDawson24/fantasy-league-almanac-dev/releases/assets/$ASSET_ID" -H 'Accept: application/octet-stream' > "$RUNNER_TEMP/dashboard.zip"
-          echo "$EXPECTED_SHA  $RUNNER_TEMP/dashboard.zip" | sha256sum --check
-      - name: Preserve portfolio and compose reviewed payload
+          set -euo pipefail
+          [[ "$BUNS_ASSET" =~ ^[0-9]+$ && "$DEMO_ASSET" =~ ^[0-9]+$ ]]
+          [[ "$BUNS_SHA" =~ ^[0-9a-f]{64}$ && "$DEMO_SHA" =~ ^[0-9a-f]{64}$ ]]
+          gh api "repos/KyleDawson24/fantasy-league-almanac-dev/releases/assets/$BUNS_ASSET" -H 'Accept: application/octet-stream' > "$RUNNER_TEMP/buns.zip"
+          gh api "repos/KyleDawson24/fantasy-league-almanac-dev/releases/assets/$DEMO_ASSET" -H 'Accept: application/octet-stream' > "$RUNNER_TEMP/demo.zip"
+          printf '%s  %s\n' "$BUNS_SHA" "$RUNNER_TEMP/buns.zip" "$DEMO_SHA" "$RUNNER_TEMP/demo.zip" | sha256sum --check
+      - name: Preserve portfolio and compose both dashboards
         env:
-          EXPECTED_SHA: ${{ inputs.bundle_sha256 }}
+          BUNS_SHA: ${{ inputs.buns_sha256 }}
+          DEMO_SHA: ${{ inputs.demo_sha256 }}
         run: |
-          python publication-tools/compose_site.py --bundle "$RUNNER_TEMP/dashboard.zip" --sha256 "$EXPECTED_SHA" --portfolio . --baseline publication-tools/homepage-baseline.json --out "$RUNNER_TEMP/site" --release
+          python publication-tools/compose_dashboards.py --buns-bundle "$RUNNER_TEMP/buns.zip" --buns-sha "$BUNS_SHA" --demo-bundle "$RUNNER_TEMP/demo.zip" --demo-sha "$DEMO_SHA" --portfolio . --baseline publication-tools/homepage-baseline.json --out "$RUNNER_TEMP/site"
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
@@ -57,6 +69,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy reviewed complete site
+      - name: Deploy composed site
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
