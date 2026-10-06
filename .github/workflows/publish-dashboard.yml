@@ -15,6 +15,12 @@ on:
       demo_sha256:
         description: SHA-256 of that sealed archive
         required: true
+      bsb_asset_id:
+        description: Private Release asset ID for the sealed BSB dashboard, or none to deploy without it (a deployed BSB is removed by none)
+        required: true
+      bsb_sha256:
+        description: SHA-256 of that sealed archive, or none
+        required: true
       approval:
         description: Type PUBLISH APPROVED DASHBOARDS
         required: true
@@ -34,13 +40,15 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
-      - name: Download and verify both private release assets
+      - name: Download and verify the private release assets
         env:
           GH_TOKEN: ${{ secrets.DASHBOARD_RELEASE_READ_TOKEN }}
           BUNS_ASSET: ${{ inputs.buns_asset_id }}
           BUNS_SHA: ${{ inputs.buns_sha256 }}
           DEMO_ASSET: ${{ inputs.demo_asset_id }}
           DEMO_SHA: ${{ inputs.demo_sha256 }}
+          BSB_ASSET: ${{ inputs.bsb_asset_id }}
+          BSB_SHA: ${{ inputs.bsb_sha256 }}
         run: |
           set -euo pipefail
           [[ "$BUNS_ASSET" =~ ^[0-9]+$ && "$DEMO_ASSET" =~ ^[0-9]+$ ]]
@@ -48,12 +56,22 @@ jobs:
           gh api "repos/KyleDawson24/fantasy-league-almanac-dev/releases/assets/$BUNS_ASSET" -H 'Accept: application/octet-stream' > "$RUNNER_TEMP/buns.zip"
           gh api "repos/KyleDawson24/fantasy-league-almanac-dev/releases/assets/$DEMO_ASSET" -H 'Accept: application/octet-stream' > "$RUNNER_TEMP/demo.zip"
           printf '%s  %s\n' "$BUNS_SHA" "$RUNNER_TEMP/buns.zip" "$DEMO_SHA" "$RUNNER_TEMP/demo.zip" | sha256sum --check
-      - name: Preserve portfolio and compose both dashboards
+          if [[ "$BSB_ASSET" == none ]]; then
+            [[ "$BSB_SHA" == none ]]
+          else
+            [[ "$BSB_ASSET" =~ ^[0-9]+$ && "$BSB_SHA" =~ ^[0-9a-f]{64}$ ]]
+            gh api "repos/KyleDawson24/fantasy-league-almanac-dev/releases/assets/$BSB_ASSET" -H 'Accept: application/octet-stream' > "$RUNNER_TEMP/bsb.zip"
+            printf '%s  %s\n' "$BSB_SHA" "$RUNNER_TEMP/bsb.zip" | sha256sum --check
+          fi
+      - name: Preserve portfolio and compose the dashboards
         env:
           BUNS_SHA: ${{ inputs.buns_sha256 }}
           DEMO_SHA: ${{ inputs.demo_sha256 }}
+          BSB_SHA: ${{ inputs.bsb_sha256 }}
         run: |
-          python publication-tools/compose_dashboards.py --buns-bundle "$RUNNER_TEMP/buns.zip" --buns-sha "$BUNS_SHA" --demo-bundle "$RUNNER_TEMP/demo.zip" --demo-sha "$DEMO_SHA" --portfolio . --baseline publication-tools/homepage-baseline.json --out "$RUNNER_TEMP/site"
+          set -euo pipefail
+          if [[ "$BSB_SHA" == none ]]; then BSB_BUNDLE=none; else BSB_BUNDLE="$RUNNER_TEMP/bsb.zip"; fi
+          python publication-tools/compose_dashboards.py --buns-bundle "$RUNNER_TEMP/buns.zip" --buns-sha "$BUNS_SHA" --demo-bundle "$RUNNER_TEMP/demo.zip" --demo-sha "$DEMO_SHA" --bsb-bundle "$BSB_BUNDLE" --bsb-sha "$BSB_SHA" --portfolio . --baseline publication-tools/homepage-baseline.json --out "$RUNNER_TEMP/site"
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
