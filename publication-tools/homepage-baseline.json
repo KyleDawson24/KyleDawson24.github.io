@@ -17,13 +17,17 @@
       "sha256": "cdeacf8ba2d248f228522a708f825e00e2b0bb290a448f98fa72d3852ae63de0",
       "bytes": 6196
     },
+    "assets/demo-home.png": {
+      "sha256": "54eba75bbefa54eb053d2eabdd14653984dbcba433764fdaf7698f127ad8e31a",
+      "bytes": 55466
+    },
     "assets/styles.css": {
-      "sha256": "0a513ae9f4fb3bb27f33babcf5d616cae5f41090d7ea0cb5d14d8c977731931d",
-      "bytes": 5676
+      "sha256": "247e1622e78321b8b71d02959ed34d7ed382062a7a0212d47f1ad8f6c5fea274",
+      "bytes": 5820
     },
     "index.html": {
-      "sha256": "30b6a6c45e988468342fd236727c6e453b0c3d387c40cdfbc3c1081e89655692",
-      "bytes": 3718
+      "sha256": "4762a541ac30845b0ed9538980b3b794cd0131b3cc3820e70db645539a322cc4",
+      "bytes": 4027
     },
     "privacy/index.html": {
       "sha256": "e4c09f5b2c068e8b92e5dda9abab1223c9d72da9d7a15c373dc65e34cf7b9866",

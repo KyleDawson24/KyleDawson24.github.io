@@ -130,6 +130,7 @@ h3 { font-size: 1.12rem; }
 .text-link { font-weight: 750; }
 .project-links { display: grid; gap: 0.45rem; }
 .secondary-link { color: var(--muted); font-size: 0.92rem; font-weight: 650; }
+.project-screenshot { width: 100%; max-width: 48rem; height: auto; margin-top: 1.5rem; border: 1px solid var(--line); border-radius: 0.55rem; }
 
 .feature-grid {
   display: grid;
