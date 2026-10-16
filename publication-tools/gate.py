@@ -9,7 +9,15 @@ FIELD=re.compile(r'(?:^|[{,])\s*["\x27]([\w -]*(?:email|phone|telephone|address|
 GUID=re.compile(r'\{?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}?',re.I)
 def sha(b):return hashlib.sha256(b).hexdigest()
 def read(p):return json.loads(Path(p).read_text(encoding='utf-8-sig'))
+# Kyle, 2026-10-16 (MLB-315): the privacy page names his own support address.
+# Exactly that address, as a whole token, exactly in privacy.html; every other
+# contact value, in every file, still fails.
+SUPPORT_PAGE='privacy.html'
+SUPPORT_ADDRESS=re.compile(r'(?<![\w.+-])kpdawson\.github@gmail\.com(?![\w.-])')
+def without_support_address(text,path):
+    return SUPPORT_ADDRESS.sub('',text) if path==SUPPORT_PAGE else text
 def text_gate(text,path):
+    text=without_support_address(text,path)
     if EMAIL.search(text) or PHONE.search(text):raise ValueError('Contact-like value in '+path+' (value withheld)')
 def field_gate(key,path):
     if CONTACT.search(key):raise ValueError('Forbidden contact field: '+path+'.'+key)
